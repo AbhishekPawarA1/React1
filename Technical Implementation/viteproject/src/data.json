@@ -1,0 +1,74 @@
+{
+  "users": {
+    "user1": {
+      "id": "1",
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "bio": "Web Developer",
+      "profilePicture": "https://firebase.storage/alice-profile.jpg"
+    },
+    "user2": {
+      "id": "2",
+      "name": "Bob Smith",
+      "email": "bob@example.com",
+      "bio": "UI Designer",
+      "profilePicture": "https://firebase.storage/bob-profile.jpg"
+    },
+    "user3": {
+      "id": "3",
+      "name": "Catherine Lee",
+      "email": "catherine@example.com",
+      "bio": "Full Stack Developer",
+      "profilePicture": "https://firebase.storage/catherine-profile.jpg"
+    },
+    "user4": {
+      "id": "4",
+      "name": "Daniel Martin",
+      "email": "daniel@example.com",
+      "bio": "Product Manager",
+      "profilePicture": "https://firebase.storage/daniel-profile.jpg"
+    },
+    "user5": {
+      "id": "5",
+      "name": "Emily Davis",
+      "email": "emily@example.com",
+      "bio": "Data Scientist",
+      "profilePicture": "https://firebase.storage/emily-profile.jpg"
+    },
+    "user6": {
+      "id": "6",
+      "name": "Franklin Harris",
+      "email": "franklin@example.com",
+      "bio": "Machine Learning Engineer",
+      "profilePicture": "https://firebase.storage/franklin-profile.jpg"
+    },
+    "user7": {
+      "id": "7",
+      "name": "Grace Wilson",
+      "email": "grace@example.com",
+      "bio": "Digital Marketer",
+      "profilePicture": "https://firebase.storage/grace-profile.jpg"
+    },
+    "user8": {
+      "id": "8",
+      "name": "Hector Perez",
+      "email": "hector@example.com",
+      "bio": "Database Administrator",
+      "profilePicture": "https://firebase.storage/hector-profile.jpg"
+    },
+    "user9": {
+      "id": "9",
+      "name": "Isabella Martinez",
+      "email": "isabella@example.com",
+      "bio": "Graphic Designer",
+      "profilePicture": "https://firebase.storage/isabella-profile.jpg"
+    },
+    "user10": {
+      "id": "10",
+      "name": "Jack Brown",
+      "email": "jack@example.com",
+      "bio": "Content Writer",
+      "profilePicture": "https://firebase.storage/jack-profile.jpg"
+    }
+  }
+}

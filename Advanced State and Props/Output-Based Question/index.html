@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+let { useState } = React;
+
+
+function App() {
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [userData, setUserData] = useState({
+    name: "Jane Doe",
+    email: "jane.doe@example.com",
+    bio: "Web Developer",
+  });
+
+  const [successMessage, setSuccessMessage] = useState("");
+
+  
+  const updateUserData = (updatedData) => {
+    setUserData(updatedData);
+    setSuccessMessage("Profile updated successfully!");
+
+    setTimeout(() => {
+      setSuccessMessage("");
+    }, 5000);
+  };
+
+  return (
+    <div>
+      <button onClick={() => setIsEditMode(!isEditMode)}>
+        {isEditMode ? "View Profile" : "Edit Profile"}
+      </button>
+      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+      {isEditMode ? (
+        <EditProfile user={userData} updateUser={updateUserData} />
+      ) : (
+        <UserProfile user={userData} />
+      )}
+    </div>
+  );
+}
+
+
+function UserProfile({ user }) {
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <p>Email: {user.email}</p>
+      <p>Bio: {user.bio}</p>
+    </div>
+  );
+}
+
+
+function EditProfile({ user, updateUser }) {
+  const [formData, setFormData] = useState(user);
+
+  
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  
+  const handleSave = (e) => {
+    e.preventDefault();
+    console.log("Updated User Data:", formData);
+    updateUser(formData);
+  };
+
+  return (
+    <form onSubmit={handleSave}>
+      <input
+        type="text"
+        name="name"
+        value={formData.name}
+        onChange={handleChange}
+      />
+      <input
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+      />
+      <textarea
+        name="bio"
+        value={formData.bio}
+        onChange={handleChange}
+      ></textarea>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+
+let root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+</script>

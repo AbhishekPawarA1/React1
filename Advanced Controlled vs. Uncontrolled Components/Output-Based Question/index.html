@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    
+let { useState ,useEffect,useRef} = React;
+
+function HybridForm() {
+  const [name, setName] = useState(""); 
+  const [error, setError] = useState(""); 
+  const emailRef = useRef(null); 
+
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    setName(value);
+
+    if (value.length < 3) {
+      setError("Name must be at least 3 characters long.");
+    } else {
+      setError("");
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+    const email = emailRef.current?.value;
+
+    if (!error && name.trim() && email) {
+      console.log("Name:", name);
+      console.log("Email:", email);
+    } else {
+      console.error("Form validation failed.");
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>
+          Name:
+          <input
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+            placeholder="Enter your name"
+          />
+        </label>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+      </div>
+
+      <div>
+        <label>
+          Email:
+          <input
+            type="email"
+            ref={emailRef}
+            placeholder="Enter your email"
+          />
+        </label>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+
+
+function App() {
+  return(
+    <HybridForm/>
+  )
+}
+
+let root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+</script>

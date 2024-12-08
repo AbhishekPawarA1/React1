@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Theme Switcher</title>
+</head>
+<body>
+    <div id="root">
+        
+    </div>
+
+    
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+    const { createContext, useState, useContext } = React;
+
+
+const ThemeContext = createContext();
+
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === "light" ? "dark" : "light"));
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+function ThemeSwitcher() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
+  return (
+    <button 
+      style={{
+        padding: "10px", 
+        backgroundColor: theme === 'light' ? '#ddd' : '#555', 
+        color: theme === 'light' ? '#000' : '#fff', 
+        border: 'none', 
+        cursor: 'pointer'
+      }}
+      onClick={toggleTheme}
+    >
+      Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme
+    </button>
+  );
+}
+
+
+function ThemedComponent() {
+  const { theme } = useContext(ThemeContext);
+
+  return (
+    <div style={{
+      backgroundColor: theme === 'light' ? '#fff' : '#333',
+      color: theme === 'light' ? '#000' : '#fff',
+      padding: '20px',
+      textAlign: 'center',
+      transition: 'all 0.3s ease'
+    }}>
+      <h1>Welcome to the Theme Switcher App!</h1>
+      <p>Current Theme: {theme}</p>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <div style={{ textAlign: 'center' }}>
+        <ThemedComponent />
+        <ThemeSwitcher />
+      </div>
+    </ThemeProvider>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+    </script>
+</body>
+</html>

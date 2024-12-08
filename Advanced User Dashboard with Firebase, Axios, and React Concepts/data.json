@@ -1,0 +1,102 @@
+[
+  {
+    "name": "Aarav Sharma",
+    "email": "aarav.sharma@example.com",
+    "bio": "A technology enthusiast who loves coding and cricket."
+  },
+  {
+    "name": "Ananya Verma",
+    "email": "ananya.verma@example.com",
+    "bio": "A passionate artist exploring digital illustrations."
+  },
+  {
+    "name": "Rohan Mehta",
+    "email": "rohan.mehta@example.com",
+    "bio": "Avid traveler and foodie, sharing experiences through my blog."
+  },
+  {
+    "name": "Ishita Nair",
+    "email": "ishita.nair@example.com",
+    "bio": "A software developer with a keen interest in AI and ML."
+  },
+  {
+    "name": "Kabir Khanna",
+    "email": "kabir.khanna@example.com",
+    "bio": "Fitness trainer who believes in a holistic approach to health."
+  },
+  {
+    "name": "Diya Rao",
+    "email": "diya.rao@example.com",
+    "bio": "A literature student and aspiring poet."
+  },
+  {
+    "name": "Arjun Patel",
+    "email": "arjun.patel@example.com",
+    "bio": "A startup founder working on sustainable solutions."
+  },
+  {
+    "name": "Maya Kapoor",
+    "email": "maya.kapoor@example.com",
+    "bio": "A teacher who loves making learning fun and engaging."
+  },
+  {
+    "name": "Vivaan Sen",
+    "email": "vivaan.sen@example.com",
+    "bio": "Digital marketer with a passion for content creation."
+  },
+  {
+    "name": "Neha Malhotra",
+    "email": "neha.malhotra@example.com",
+    "bio": "Interior designer inspired by minimalism and nature."
+  },
+  {
+    "name": "Aditya Singh",
+    "email": "aditya.singh@example.com",
+    "bio": "A data scientist who loves solving real-world problems."
+  },
+  {
+    "name": "Sanya Iyer",
+    "email": "sanya.iyer@example.com",
+    "bio": "Music lover and pianist, composing melodies for relaxation."
+  },
+  {
+    "name": "Riya Desai",
+    "email": "riya.desai@example.com",
+    "bio": "A social activist focused on education and empowerment."
+  },
+  {
+    "name": "Krish Gupta",
+    "email": "krish.gupta@example.com",
+    "bio": "Engineer by profession, photographer by passion."
+  },
+  {
+    "name": "Meera Joshi",
+    "email": "meera.joshi@example.com",
+    "bio": "A yoga instructor promoting mental and physical wellness."
+  },
+  {
+    "name": "Aryan Kapoor",
+    "email": "aryan.kapoor@example.com",
+    "bio": "Graphic designer creating vibrant and engaging visuals."
+  },
+  {
+    "name": "Priya Aggarwal",
+    "email": "priya.aggarwal@example.com",
+    "bio": "Chef who specializes in Indian and fusion cuisines."
+  },
+  {
+    "name": "Kabir Sharma",
+    "email": "kabir.sharma@example.com",
+    "bio": "An adventure junkie capturing the wild through my lens."
+  },
+  {
+    "name": "Sara Jain",
+    "email": "sara.jain@example.com",
+    "bio": "An aspiring journalist passionate about uncovering stories."
+  },
+  {
+    "name": "Rahul Bhatia",
+    "email": "rahul.bhatia@example.com",
+    "bio": "Entrepreneur focused on developing innovative tech solutions."
+  }
+]

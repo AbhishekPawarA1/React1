@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    .dark-theme {
+      background-color: #121212;
+      color: #ffffff;
+    }
+    .light-theme {
+      background-color: #f9f9f9;
+      color: #000000;
+    }
+    .user-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      box-sizing: border-box;
+    }
+    .button {
+      padding: 10px;
+      margin: 5px 0;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+    .delete-btn {
+      color: red;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+</body>
+</html>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.9/axios.min.js"></script>
+
+
+<script type="text/babel">
+const { useState, useEffect, createContext, useContext } = React;
+
+// Firebase URL
+const FIREBASE_URL = 'https://sprint3-ed14e-default-rtdb.firebaseio.com/.json';
+
+// Theme Context
+const ThemeContext = createContext();
+
+// Theme Provider Component
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('light');
+  
+  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+  
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <div className={theme === 'light' ? 'light-theme' : 'dark-theme'}>
+        {children}
+      </div>
+    </ThemeContext.Provider>
+  );
+}
+
+// UserCard Component
+function UserCard({ user, onDelete, onEdit }) {
+  const { name, email, bio, id } = user;
+  return (
+    <div className="user-card">
+      <div>
+        <h4>{name}</h4>
+        <p>{email}</p>
+        <p>{bio}</p>
+      </div>
+      <div>
+        <button className="delete-btn" onClick={() => onDelete(id)}>Delete</button>
+      </div>
+    </div>
+  );
+}
+
+// Main Dashboard Component
+function Dashboard() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [form, setForm] = useState({ name: '', email: '', bio: '' });
+  const [search, setSearch] = useState('');
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
+  // Fetch Users
+  useEffect(() => {
+    async function fetchUsers() {
+      try {
+        const response = await axios.get(FIREBASE_URL);
+        if (response.data) {
+          const fetchedUsers = Object.keys(response.data).map(key => ({
+            ...response.data[key],
+            id: key
+          }));
+          setUsers(fetchedUsers);
+        }
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchUsers();
+  }, []);
+
+  // Add User
+  const addUser = async (event) => {
+    event.preventDefault();
+    const newUser = { ...form };
+    try {
+      const response = await axios.post(FIREBASE_URL, newUser);
+      setUsers([...users, { ...newUser, id: response.data.name }]);
+      setForm({ name: '', email: '', bio: '' });
+    } catch (error) {
+      console.error('Error adding user:', error);
+    }
+  };
+
+  // Delete User
+  const deleteUser = async (id) => {
+    try {
+      await axios.delete(`https://sprint3-ed14e-default-rtdb.firebaseio.com/${id}.json`);
+      setUsers(users.filter(user => user.id !== id));
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
+
+  // Filter Users
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(search.toLowerCase()) ||
+    user.email.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <div className="container">
+      <h1>User Dashboard</h1>
+      <button onClick={toggleTheme}>Toggle Theme</button>
+      <form onSubmit={addUser}>
+        <div className="form-group">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Name"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            required
+          />
+          <input
+            type="email"
+            className="form-control"
+            placeholder="Email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            required
+          />
+          <textarea
+            className="form-control"
+            placeholder="Bio"
+            value={form.bio}
+            onChange={(e) => setForm({ ...form, bio: e.target.value })}
+            required
+          ></textarea>
+        </div>
+        <button type="submit" className="button">Add User</button>
+      </form>
+      <input
+        type="text"
+        className="form-control"
+        placeholder="Search users..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        filteredUsers.map(user => (
+          <UserCard key={user.id} user={user} onDelete={deleteUser} />
+        ))
+      )}
+    </div>
+  );
+}
+
+// App Component
+function App() {
+  return (
+    <ThemeProvider>
+      <Dashboard />
+    </ThemeProvider>
+  );
+}
+
+let root=ReactDOM.createRoot(document.getElementById("root"))
+root.render(<App/>)
+</script>

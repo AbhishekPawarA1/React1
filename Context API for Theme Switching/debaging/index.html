@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Context Example</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+
+    const { createContext, useContext, useState } = React;
+
+
+    const ThemeContext = createContext();
+
+    function ThemeProvider({ children }) {
+      const [theme, setTheme] = useState("light");
+
+      const toggleTheme = () => {
+        setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+      };
+
+      return (
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+          {children}
+        </ThemeContext.Provider>
+      );
+    }
+
+    function ThemedComponent() {
+      const { theme, toggleTheme } = useContext(ThemeContext);
+
+      return (
+        <div
+          style={{
+            backgroundColor: theme === "light" ? "#fff" : "#333",
+            color: theme === "light" ? "#000" : "#fff",
+            padding: "20px",
+            textAlign: "center",
+          }}
+        >
+          <p>The current theme is: {theme}</p>
+          <button onClick={toggleTheme}>Toggle Theme</button>
+        </div>
+      );
+    }
+
+
+    function App() {
+      return (
+        <ThemeProvider>
+          <ThemedComponent />
+        </ThemeProvider>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>

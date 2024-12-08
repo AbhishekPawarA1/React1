@@ -1,0 +1,59 @@
+/* Edit User Form Styling */
+.edit-user-form {
+  padding: 15px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.edit-user-form .form-group {
+  margin-bottom: 15px;
+}
+
+.edit-user-form .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+.edit-user-form .form-group input,
+.edit-user-form .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.edit-user-form .form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-user-form .form-actions button {
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-user-form .form-actions button:first-child {
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-user-form .form-actions button:last-child {
+  background-color: #ccc;
+  color: #333;
+}
+
+.edit-user-form .form-actions button:hover {
+  opacity: 0.9;
+}
+
+.error {
+  color: #d9534f;
+  font-siz
+}
